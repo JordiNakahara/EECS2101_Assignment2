@@ -197,6 +197,17 @@ abstract class CPUPriority{
             return null;
         }
 
+        public void waitAll(Process process){
+            Node notNode = findNode(process);
+            Node currentNode = header;
+
+            while (currentNode != null){
+                if (currentNode.getProcess() != process){
+                    currentNode.getProcess().addWaitingTime();
+                }
+                currentNode = currentNode.getNext();
+            }
+        }
 
         public void printQueue(){
             Node currentNode = header;
@@ -208,9 +219,6 @@ abstract class CPUPriority{
         }
 
     }
-
-
-
     private CustomPriorityQueue queue;
 
     public CPUPriority(){
@@ -249,9 +257,16 @@ abstract class CPUPriority{
     public CustomPriorityQueue getQueue() {
         return queue;
     }
+    public int getSize(){
+        return queue.getSize();
+    }
 
     public void printQueue(){
         queue.printQueue();
+    }
+
+    public void waitAll(Process process){
+        queue.waitAll(process);
     }
 
     abstract public String run();
