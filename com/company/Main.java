@@ -20,7 +20,9 @@ public class Main {
         String log = "";
         while (log != null){
             log = test.run();
-            System.out.print(log);
+            System.out.println(log);
         }
+
+        System.out.println(test.getAverageWaitingTime());
     }
 }
