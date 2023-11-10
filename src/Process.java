@@ -1,8 +1,6 @@
-
-
 public class Process {
     private final int priority, burstTime;
-    private int progress;
+    private int progress, waitingTime;
     private final String name;
 
     public Process(int burstTime, int priority, String name){
@@ -10,10 +8,14 @@ public class Process {
         this.priority = priority;
         this.progress = 0;
         this.name = name;
+        this.waitingTime = 0;
     }
 
     public void run(int time){
         progress++;
+    }
+    public void addWaitingTime(){
+        waitingTime++;
     }
 
     public int getPriority(){
@@ -28,5 +30,7 @@ public class Process {
     public String getName() {
         return name;
     }
-
+    public int getWaitingTime() {
+        return waitingTime;
+    }
 }
