@@ -1,11 +1,11 @@
-class Process {
+class RobinProcess {
         int pid;
         int at;
         int bt;
         int ct, wt, tat, rt, start_time;
         int bt_remaining;
 
-        Process(int pid, int at, int bt) {
+        RobinProcess(int pid, int at, int bt) {
             this.pid = pid;
             this.at = at;
             this.bt = bt;
@@ -17,7 +17,7 @@ class Process {
             this.bt_remaining = bt;
         }
 
-        static class ProcessComparatorAT implements Comparator<Process> {
+        static class ProcessComparatorAT implements Comparator<RobinProcess> {
             public int compare(Process a, Process b) {
                 int x = a.at;
                 int y = b.at;
@@ -25,7 +25,7 @@ class Process {
             }
         }
 
-        static class ProcessComparatorPID implements Comparator<Round_Robin.RobinProcess> {
+        static class ProcessComparatorPID implements Comparator<RobinProcess> {
             public int compare(Process a,Process b) {
                 int x = a.pid;
                 int y = b.pid;
