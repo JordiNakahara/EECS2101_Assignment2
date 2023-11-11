@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.Scanner;
 public class Round_Robin {
 
- public String scheduler(Process[] p, int tq) {
+ public String scheduler(RobinProcess[] p, int tq) {
             int n = p.length;
             int index;
             Queue<Integer> q = new LinkedList<>();
