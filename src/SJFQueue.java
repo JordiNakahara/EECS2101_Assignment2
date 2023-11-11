@@ -99,8 +99,14 @@ public class SJFQueue
 					processList.remove(0);
 				}
 			}
-			System.out.print("Cycles needed for " + current.getName() + " = " + current.getBursts() + " ");
-			
+			if(current != null)
+			{
+				System.out.print("Cycles needed for " + current.getName() + " = " + current.getBursts() + " ");
+			}
+			else
+			{
+				System.out.print("No processes at this time");
+			}
 			//If our process terminates
 			if(current != null && current.getBursts() <= 0)
 			{
