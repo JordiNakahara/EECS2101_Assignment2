@@ -102,7 +102,7 @@ public class SJFQueue
 			System.out.print("Cycles needed for " + current.getName() + " = " + current.getBursts() + " ");
 			
 			//If our process terminates
-			if(current.getBursts() <= 0)
+			if(current != null && current.getBursts() <= 0)
 			{
 				processLeft--;
 				System.out.print(" SJFProcess " + current.getName() + " Finished");
