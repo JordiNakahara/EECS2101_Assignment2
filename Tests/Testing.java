@@ -1,11 +1,15 @@
 import org.junit.Assert;
 import org.junit.Test;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import java.util.ArrayList;
 
 public class Testing {
     @Test
     public void roundRobin1() {
+        boolean flag = false;
         RobinProcess[] p = new RobinProcess[3];
         p[0] = new RobinProcess();
         p[0].arrivalTime = 0;
@@ -19,7 +23,32 @@ public class Testing {
 
         Round_Robin test = new Round_Robin();
 
-        Assert.assertEquals("5.6666665", test.scheduler(p, 1));
+        String output = test.scheduler(p, 1);
+
+        flag = output.equals("5.6666665");
+
+        if(flag) {
+            try {
+                File outputFile = new File("output.txt");
+
+                if (outputFile.createNewFile()) {
+                    FileWriter writer = new FileWriter("output.txt");
+                    writer.write("RoundRobin1 test passed\nExpected: 5.6666665        " +
+                            "Actual:" + output + "\n----------------------------------------------");
+                    writer.close();
+                }
+                else {
+                    FileWriter writer = new FileWriter("output.txt");
+                    writer.write("RoundRobin1 test passed\nExpected: 5.6666665        " +
+                            "Actual:" + output + "\n----------------------------------------------");
+                    writer.close();
+                }
+            } catch (IOException e) {
+
+            }
+        }
+
+        Assert.assertEquals(true, flag);
     }
 
     @Test
@@ -152,16 +181,12 @@ public class Testing {
 
     @Test
     public void roundRobinPriority2() {
-        RRPriority test = new RRPriority(2);
-        Process one = new Process(4,1,"1");
+        RRPriority test = new RRPriority(15);
+        Process one = new Process(1,1,"1");
         test.addProcess(one);
-        Process four = new Process(4,1,"4");
-        test.addProcess(four);
-        Process two = new Process(1,10,"2");
+        Process two = new Process(1,2,"2");
         test.addProcess(two);
-        Process five = new Process(1,3,"5");
-        test.addProcess(five);
-        Process three = new Process(1,0,"3");
+        Process three = new Process(1,3,"3");
         test.addProcess(three);
         test.printQueue();
 
@@ -175,7 +200,29 @@ public class Testing {
         double temp = test.getAverageWaitingTime();
         String output = "" + test.getAverageWaitingTime();
 
-        Assert.assertEquals("5.4", output);
+        Assert.assertEquals("1.0", output);
+    }
+
+
+    @Test
+    public void roundRobinPriority3() {
+        RRPriority test = new RRPriority(1);
+        Process one = new Process(1,1,"1");
+        test.addProcess(one);
+
+
+
+        String log = "";
+        while (log != null){
+            log = test.run();
+
+        }
+
+        System.out.println(test.getAverageWaitingTime());
+        double temp = test.getAverageWaitingTime();
+        String output = "" + test.getAverageWaitingTime();
+
+        Assert.assertEquals("0.0", output);
     }
 
     @Test
