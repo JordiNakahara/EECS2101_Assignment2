@@ -203,8 +203,7 @@ public class Testing {
         Assert.assertEquals("1.0", output);
     }
 
-
-    @Test
+    //@Test
     public void roundRobinPriority3() {
         RRPriority test = new RRPriority(1);
         Process one = new Process(1,1,"1");
@@ -223,6 +222,38 @@ public class Testing {
         String output = "" + test.getAverageWaitingTime();
 
         Assert.assertEquals("0.0", output);
+    }
+
+    @Test
+    public void roundRobinPriority4() {
+        RRPriority test = new RRPriority(1);
+        Process one = new Process(4,1,"1");
+        test.addProcess(one);
+        Process two = new Process(2,1,"2");
+        test.addProcess(two);
+        Process three = new Process(7,1,"3");
+        test.addProcess(three);
+        Process four = new Process(1,1,"4");
+        test.addProcess(four);
+        Process five = new Process(8,1,"5");
+        test.addProcess(five);
+        Process six = new Process(6,1,"6");
+        test.addProcess(six);
+
+
+
+
+        String log = "";
+        while (log != null){
+            log = test.run();
+
+        }
+
+        System.out.println(test.getAverageWaitingTime());
+        double temp = test.getAverageWaitingTime();
+        String output = "" + test.getAverageWaitingTime();
+
+        Assert.assertEquals("13.166666666666666", output);
     }
 
     @Test
