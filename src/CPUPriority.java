@@ -75,8 +75,10 @@ abstract class CPUPriority{
             int priorityCount = 0;
             Node currentNode = header;
             while (currentNode != null){
-                if (currentNode.getProcess().getPriority() == priority){
-                    priorityCount++;
+                if (currentNode.getProcess() != null){
+                    if (currentNode.getProcess().getPriority() == priority){
+                        priorityCount++;
+                    }
                 }
                 currentNode = currentNode.getNext();
             }
@@ -117,16 +119,13 @@ abstract class CPUPriority{
             if (size == 0){
                 header.setProcess(p);
                 size++;
-                System.out.println(p.getName() + "NEW HEADER - SIZE:" + size);
                 return;
             }else if (size == 1){
                 if (p.getPriority() < header.getProcess().getPriority()){
                     tail.setProcess(header.getProcess());
                     header.setProcess(p);
-                    System.out.println(p.getName() + "NEW HEADER - SIZE:" + size);
                 }else {
                     tail.setProcess(p);
-                    System.out.println(p.getName() + "NEW TAIL - SIZE:" + size);
                 }
                 size++;
                 return;
@@ -196,12 +195,13 @@ abstract class CPUPriority{
         }
 
         public void waitAll(Process process){
-            Node notNode = findNode(process);
             Node currentNode = header;
 
             while (currentNode != null){
-                if (currentNode.getProcess() != process){
-                    currentNode.getProcess().addWaitingTime();
+                if (currentNode.getProcess() != null){
+                    if (currentNode.getProcess() != process){
+                        currentNode.getProcess().addWaitingTime();
+                    }
                 }
                 currentNode = currentNode.getNext();
             }

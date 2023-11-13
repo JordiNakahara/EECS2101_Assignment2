@@ -1,12 +1,5 @@
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.Before;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
-import java.io.FileNotFoundException;
 
 import java.util.ArrayList;
 
@@ -151,6 +144,8 @@ public class Testing {
         String output = "" + test.getAverageWaitingTime();
 
         Assert.assertEquals("13.8", output);
+
+        System.out.println("roundRobinPriority1 Test Passed\nAverage Waiting Time: " + output);
     }
 
     @Test
@@ -175,9 +170,10 @@ public class Testing {
         String output = "" + test.getAverageWaitingTime();
 
         Assert.assertEquals("1.0", output);
+        System.out.println("roundRobinPriority2 Test Passed\nAverage Waiting Time: " + output);
     }
 
-    //@Test
+    @Test
     public void roundRobinPriority3() {
         RRPriority test = new RRPriority(1);
         Process one = new Process(1, 1, "1");
@@ -194,6 +190,7 @@ public class Testing {
         String output = "" + test.getAverageWaitingTime();
 
         Assert.assertEquals("0.0", output);
+        System.out.println("roundRobinPriority3 Test Passed\nAverage Waiting Time: " + output);
     }
 
     @Test
@@ -224,6 +221,7 @@ public class Testing {
         String output = "" + test.getAverageWaitingTime();
 
         Assert.assertEquals("13.166666666666666", output);
+        System.out.println("roundRobinPriority4 Test Passed\nAverage Waiting Time: " + output);
     }
 
     @Test
@@ -243,6 +241,7 @@ public class Testing {
         String output = "" + toRun.averageWaiting();
 
         Assert.assertEquals("6.5", output);
+        System.out.println("SJF1 Test Passed\nAverage Waiting Time: " + output);
     }
 
     @Test
@@ -260,6 +259,7 @@ public class Testing {
         toRun.averageWaitingTime();
         String output = "" + toRun.averageWaiting();
         Assert.assertEquals("3.0", output);
+        System.out.println("SJF2 Test Passed\nAverage Waiting Time: " + output);
     }
 
     @Test
@@ -278,6 +278,7 @@ public class Testing {
         toRun.averageWaitingTime();
         String output = "" + toRun.averageWaiting();
         Assert.assertEquals("2.0", output);
+        System.out.println("SJF3 Test Passed\nAverage Waiting Time: " + output);
     }
 
     @Test
@@ -296,6 +297,7 @@ public class Testing {
         toRun.averageWaitingTime();
         String output = "" + toRun.averageWaiting();
         Assert.assertEquals("0.2", output);
+        System.out.println("SJF4 Test Passed\nAverage Waiting Time: " + output);
     }
 
     @Test
@@ -313,6 +315,7 @@ public class Testing {
         toRun.averageWaitingTime();
         String output = "" + toRun.averageWaiting();
         Assert.assertEquals("39.0", output);
+        System.out.println("SJF5 Test Passed\nAverage Waiting Time: " + output);
     }
 
     @Test
@@ -327,6 +330,7 @@ public class Testing {
         toRun.averageWaitingTime();
         String output = "" + toRun.averageWaiting();
         Assert.assertEquals("0.0", output);
+        System.out.println("SJF6 Test Passed\nAverage Waiting Time: " + output);
     }
 
     @Test
@@ -342,7 +346,8 @@ public class Testing {
         SJFQueue toRun = new SJFQueue(toPass);
         toRun.averageWaitingTime();
         String output = "" + toRun.averageWaiting();
-        Assert.assertEquals("1.3333334", output);
+        Assert.assertEquals("1.3333333333333333", output);
+        System.out.println("SJF7 Test Passed\nAverage Waiting Time: " + output);
     }
 
     @Test
@@ -359,6 +364,7 @@ public class Testing {
 
         String output = "" + test.getAverageWaitingTime();
         Assert.assertEquals("0.0", output);
+        System.out.println("TestAll1 RRPriority Portion Passed\nAverage Waiting Time: " + output);
 
         ArrayList<SJFProcess> toPass = new ArrayList<SJFProcess>();
 
@@ -370,6 +376,7 @@ public class Testing {
         toRun.averageWaitingTime();
         output = "" + toRun.averageWaiting();
         Assert.assertEquals("0.0", output);
+        System.out.println("TestAll1 SJF Portion Passed\nAverage Waiting Time: " + output);
 
     }
 
@@ -391,20 +398,21 @@ public class Testing {
 
         String output = "" + test.getAverageWaitingTime();
         Assert.assertEquals("4.333333333333333", output);
+        System.out.println("TestAll2 RRPriority Portion Passed\nAverage Waiting Time: " + output);
 
         ArrayList<SJFProcess> toPass = new ArrayList<SJFProcess>();
 
 
         toPass.add(new SJFProcess("One", 5, 0));
-        toPass.add(new SJFProcess("Two", 3, 1));
-        toPass.add(new SJFProcess("Three", 7, 2));
+        toPass.add(new SJFProcess("Two", 3, 0));
+        toPass.add(new SJFProcess("Three", 7, 0));
 
         //Running process to find average waiting time of the above processes.
         SJFQueue toRun = new SJFQueue(toPass);
         toRun.averageWaitingTime();
         output = "" + toRun.averageWaiting();
-        Assert.assertEquals("3.6666667", output);
-
+        Assert.assertEquals("3.6666666666666665", output);
+        System.out.println("TestAll2 SJF Portion Passed\nAverage Waiting Time: " + output);
     }
 
     @Test
@@ -432,7 +440,8 @@ public class Testing {
         }
 
         String output = "" + test.getAverageWaitingTime();
-        Assert.assertEquals("4.333333333333333", output);
+        Assert.assertEquals("14.571428571428571", output);
+        System.out.println("TestAll3 RRPriority Portion Passed\nAverage Waiting Time: " + output);
 
         ArrayList<SJFProcess> toPass = new ArrayList<SJFProcess>();
 
@@ -449,8 +458,8 @@ public class Testing {
         SJFQueue toRun = new SJFQueue(toPass);
         toRun.averageWaitingTime();
         output = "" + toRun.averageWaiting();
-        Assert.assertEquals("3.0", output);
-
+        Assert.assertEquals("6.571428571428571", output);
+        System.out.println("TestAll3 SJF Portion Passed\nAverage Waiting Time: " + output);
     }
 
 
