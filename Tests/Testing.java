@@ -1,11 +1,18 @@
 import org.junit.Assert;
 import org.junit.Test;
-
 import java.util.ArrayList;
 
+/**
+ * This class contains jUnit test cases in order to test the algorithms.
+ * @author Jordi Nakahara
+ * @version 1.0
+ */
 public class Testing {
 
 
+    /**
+     * This method tests the round-robin algorithm.
+     */
     @Test
     public void roundRobin1() {
         boolean flag = false;
@@ -26,6 +33,9 @@ public class Testing {
         Assert.assertEquals(true, flag);
     }
 
+    /**
+     * This method tests the round-robin algorithm.
+     */
     @Test
     public void roundRobin2() {
         RobinProcess[] p = new RobinProcess[4];
@@ -39,7 +49,9 @@ public class Testing {
         Assert.assertEquals("6.25", test.scheduler(p, 32, 1, 1));
     }
 
-
+    /**
+     * This method tests the round-robin algorithm.
+     */
     @Test
     public void roundRobin3() {
         RobinProcess[] p = new RobinProcess[3];
@@ -53,6 +65,10 @@ public class Testing {
         Assert.assertEquals("4.3333335", test.scheduler(p, 1,1,1));
     }
 
+
+    /**
+     * This method tests the round-robin algorithm.
+     */
     @Test
     public void roundRobin4() {
         RobinProcess[] p = new RobinProcess[5];
@@ -68,6 +84,10 @@ public class Testing {
         Assert.assertEquals("4.6", test.scheduler(p, 1,1,1));
     }
 
+
+    /**
+     * This method tests the round-robin algorithm.
+     */
     @Test
     public void roundRobin5() {
         RobinProcess[] p = new RobinProcess[20];
@@ -82,6 +102,10 @@ public class Testing {
         Assert.assertEquals("8.85", test.scheduler(p, 3,1,1));
     }
 
+
+    /**
+     * This method tests the round-robin algorithm.
+     */
     @Test
     public void roundRobin6() {
         RobinProcess[] p = new RobinProcess[3];
@@ -94,6 +118,10 @@ public class Testing {
         Assert.assertEquals("9.0", test.scheduler(p, 15,1,1));
     }
 
+
+    /**
+     * This method tests the round-robin-priority combined algorithm.
+     */
     @Test
     public void roundRobinPriority1() {
         RRPriority test = new RRPriority(2);
@@ -124,6 +152,10 @@ public class Testing {
         System.out.println("roundRobinPriority1 Test Passed\nAverage Waiting Time: " + output);
     }
 
+
+    /**
+     * This method tests the round-robin-priority combined algorithm.
+     */
     @Test
     public void roundRobinPriority2() {
         RRPriority test = new RRPriority(15);
@@ -149,6 +181,9 @@ public class Testing {
         System.out.println("roundRobinPriority2 Test Passed\nAverage Waiting Time: " + output);
     }
 
+    /**
+     * This method tests the round-robin-priority combined algorithm.
+     */
     @Test
     public void roundRobinPriority3() {
         RRPriority test = new RRPriority(1);
@@ -169,6 +204,10 @@ public class Testing {
         System.out.println("roundRobinPriority3 Test Passed\nAverage Waiting Time: " + output);
     }
 
+
+    /**
+     * This method tests the round-robin-priority combined algorithm.
+     */
     @Test
     public void roundRobinPriority4() {
         RRPriority test = new RRPriority(1);
@@ -200,6 +239,11 @@ public class Testing {
         System.out.println("roundRobinPriority4 Test Passed\nAverage Waiting Time: " + output);
     }
 
+
+
+    /**
+     * This method tests the shortest-job-first algorithm.
+     */
     @Test
     public void SJF1() {
         ArrayList<SJFProcess> toPass = new ArrayList<SJFProcess>();
@@ -220,6 +264,10 @@ public class Testing {
         System.out.println("SJF1 Test Passed\nAverage Waiting Time: " + output);
     }
 
+
+    /**
+     * This method tests the shortest-job-first algorithm.
+     */
     @Test
     public void SJF2() {
         ArrayList<SJFProcess> toPass = new ArrayList<SJFProcess>();
@@ -238,6 +286,10 @@ public class Testing {
         System.out.println("SJF2 Test Passed\nAverage Waiting Time: " + output);
     }
 
+
+    /**
+     * This method tests the shortest-job-first algorithm.
+     */
     @Test
     public void SJF3() {
         ArrayList<SJFProcess> toPass = new ArrayList<SJFProcess>();
@@ -257,6 +309,10 @@ public class Testing {
         System.out.println("SJF3 Test Passed\nAverage Waiting Time: " + output);
     }
 
+
+    /**
+     * This method tests the shortest-job-first algorithm.
+     */
     @Test
     public void SJF4() {
         ArrayList<SJFProcess> toPass = new ArrayList<SJFProcess>();
@@ -276,6 +332,10 @@ public class Testing {
         System.out.println("SJF4 Test Passed\nAverage Waiting Time: " + output);
     }
 
+
+    /**
+     * This method tests the shortest-job-first algorithm.
+     */
     @Test
     public void SJF5() {
         ArrayList<SJFProcess> toPass = new ArrayList<SJFProcess>();
@@ -294,6 +354,10 @@ public class Testing {
         System.out.println("SJF5 Test Passed\nAverage Waiting Time: " + output);
     }
 
+
+    /**
+     * This method tests the shortest-job-first algorithm.
+     */
     @Test
     public void SJF6() {
         ArrayList<SJFProcess> toPass = new ArrayList<SJFProcess>();
@@ -309,6 +373,11 @@ public class Testing {
         System.out.println("SJF6 Test Passed\nAverage Waiting Time: " + output);
     }
 
+
+
+    /**
+     * This method tests the shortest-job-first algorithm.
+     */
     @Test
     public void SJF7() {
         ArrayList<SJFProcess> toPass = new ArrayList<SJFProcess>();
@@ -326,6 +395,10 @@ public class Testing {
         System.out.println("SJF7 Test Passed\nAverage Waiting Time: " + output);
     }
 
+
+    /**
+     * This method tests all the algorithms with the same test case.
+     */
     @Test
     public void TestAll1() {
         RRPriority test = new RRPriority(1);
@@ -356,6 +429,10 @@ public class Testing {
 
     }
 
+
+    /**
+     * This method tests all the algorithms with the same test case.
+     */
     @Test
     public void TestAll2() {
         RRPriority test = new RRPriority(2);
@@ -391,6 +468,10 @@ public class Testing {
         System.out.println("TestAll2 SJF Portion Passed\nAverage Waiting Time: " + output);
     }
 
+
+    /**
+     * This method tests all the algorithms with the same test case.
+     */
     @Test
     public void TestAll3() {
         RRPriority test = new RRPriority(2);
