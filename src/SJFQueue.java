@@ -66,37 +66,41 @@ public class SJFQueue
 			//True when a new process arrives
 			if(processList.size() != 0)
 			{
-				if((processList.get(0).getArrival()) == cpuTime)
+				for(int i = 0; i < processList.size(); i++)
 				{
-					//If there's no active process, we can get right to work.
-					if(current == null)
+					if((processList.get(i).getArrival()) == cpuTime)
 					{
-						current = processList.get(0);
-						System.out.print("Obtained process " + current.getName() + ", ");
-					}
-					//Otherwise:
-					else
-					{
-						//The new process is shorter than the current process:
-						if(isShorter(current, processList.get(0)))
+						//If there's no active process, we can get right to work.
+						if(current == null)
 						{
-							//The current process is now waiting
-							current.waitSwap();
-							
-							undone.add(current);
-							current = processList.get(0);
+							current = processList.get(i);
 							System.out.print("Obtained process " + current.getName() + ", ");
 						}
-						//The new process is longer than the current process:
+						//Otherwise:
 						else
 						{
-							//The new process is now waiting
-							processList.get(0).waitSwap();
-							undone.add(processList.get(0));
+							//The new process is shorter than the current process:
+							if(isShorter(current, processList.get(0)))
+							{
+								//The current process is now waiting
+								current.waitSwap();
+								
+								undone.add(current);
+								current = processList.get(i);
+								System.out.print("Obtained process " + current.getName() + ", ");
+							}
+							//The new process is longer than the current process:
+							else
+							{
+								//The new process is now waiting
+								processList.get(i).waitSwap();
+								undone.add(processList.get(i));
+							}
 						}
+						
+						processList.remove(i);
+						i--;
 					}
-					
-					processList.remove(0);
 				}
 			}
 			if(current != null)
