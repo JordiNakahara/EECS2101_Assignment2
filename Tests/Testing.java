@@ -6,117 +6,93 @@ import java.util.ArrayList;
 public class Testing {
 
 
-//    @Test
-//    public void roundRobin1() {
-//        boolean flag = false;
-//        RobinProcess[] p = new RobinProcess[3];
-//        p[0] = new RobinProcess(1,0,24);
-//        p[1] = new RobinProcess(2,0,3);
-//        p[2] = new RobinProcess(3,0,3);
-//
-//        Round_Robin test = new Round_Robin();
-//
-//        String output = test.scheduler(p, 1, 0, 0);
-//
-//        flag = output.equals("5.6666665");
-//
-//
-//
-//
-//        Assert.assertEquals(true, flag);
-//    }
+    @Test
+    public void roundRobin1() {
+        boolean flag = false;
+        RobinProcess[] p = new RobinProcess[3];
+        p[0] = new RobinProcess(1,0,24);
+        p[1] = new RobinProcess(2,0,3);
+        p[2] = new RobinProcess(3,0,3);
 
-//    @Test
-//    public void roundRobin2() {
-//        RobinProcess[] p = new RobinProcess[4];
-//        p[0] = new RobinProcess(1, 17, 56);
-//        p[1] = new RobinProcess(2, 400, 2);
-//        p[2] = new RobinProcess(3, 32, 8);
-//        p[3] = new RobinProcess(4, 128, 14);
-//
-//        Round_Robin test = new Round_Robin();
-//
-//        Assert.assertEquals("6.25", test.scheduler(p, 32, 1, 1));
-//    }
-//
-//
-//    @Test
-//    public void roundRobin3() {
-//        RobinProcess[] p = new RobinProcess[3];
-//        p[0] = new RobinProcess();
-//        p[0].arrivalTime = 0;
-//        p[0].burstTime = 3;
-//        p[1] = new RobinProcess();
-//        p[1].arrivalTime = 0;
-//        p[1].burstTime = 5;
-//        p[2] = new RobinProcess();
-//        p[2].arrivalTime = 0;
-//        p[2].burstTime = 2;
-//
-//
-//        Round_Robin test = new Round_Robin();
-//
-//        Assert.assertEquals("4.3333335", test.scheduler(p, 1));
-//    }
-//
-//    @Test
-//    public void roundRobin4() {
-//        RobinProcess[] p = new RobinProcess[5];
-//        p[0] = new RobinProcess();
-//        p[0].arrivalTime = 0;
-//        p[0].burstTime = 1;
-//        p[1] = new RobinProcess();
-//        p[1].arrivalTime = 0;
-//        p[1].burstTime = 2;
-//        p[2] = new RobinProcess();
-//        p[2].arrivalTime = 1;
-//        p[2].burstTime = 3;
-//        p[3] = new RobinProcess();
-//        p[3].arrivalTime = 2;
-//        p[3].burstTime = 4;
-//        p[4] = new RobinProcess();
-//        p[4].arrivalTime = 3;
-//        p[4].burstTime = 5;
-//
-//
-//        Round_Robin test = new Round_Robin();
-//
-//        Assert.assertEquals("4.6", test.scheduler(p, 1));
-//    }
-//
-//    @Test
-//    public void roundRobin5() {
-//        RobinProcess[] p = new RobinProcess[20];
-//
-//        for (int i = 0; i < 20; i++) {
-//            p[i] = new RobinProcess();
-//            p[i].arrivalTime = i;
-//            p[i].burstTime = i % 3 + 1;
-//        }
-//
-//
-//        Round_Robin test = new Round_Robin();
-//
-//        Assert.assertEquals("8.85", test.scheduler(p, 3));
-//    }
-//
-//    @Test
-//    public void roundRobin6() {
-//        RobinProcess[] p = new RobinProcess[3];
-//        p[0] = new RobinProcess();
-//        p[0].arrivalTime = 7;
-//        p[0].burstTime = 6;
-//        p[1] = new RobinProcess();
-//        p[1].arrivalTime = 45;
-//        p[1].burstTime = 18;
-//        p[2] = new RobinProcess();
-//        p[2].arrivalTime = 23;
-//        p[2].burstTime = 34;
-//
-//        Round_Robin test = new Round_Robin();
-//
-//        Assert.assertEquals("9.0", test.scheduler(p, 15));
-//    }
+        Round_Robin test = new Round_Robin();
+
+        String output = test.scheduler(p, 1, 1, 1);
+
+        flag = output.equals("5.6666665");
+
+
+
+
+        Assert.assertEquals(true, flag);
+    }
+
+    @Test
+    public void roundRobin2() {
+        RobinProcess[] p = new RobinProcess[4];
+        p[0] = new RobinProcess(1, 17, 56);
+        p[1] = new RobinProcess(2, 400, 2);
+        p[2] = new RobinProcess(3, 32, 8);
+        p[3] = new RobinProcess(4, 128, 14);
+
+        Round_Robin test = new Round_Robin();
+
+        Assert.assertEquals("6.25", test.scheduler(p, 32, 1, 1));
+    }
+
+
+    @Test
+    public void roundRobin3() {
+        RobinProcess[] p = new RobinProcess[3];
+        p[0] = new RobinProcess(1,0,3);
+        p[1] = new RobinProcess(2,0,5);
+        p[2] = new RobinProcess(3,0,2);
+
+
+        Round_Robin test = new Round_Robin();
+
+        Assert.assertEquals("4.3333335", test.scheduler(p, 1,1,1));
+    }
+
+    @Test
+    public void roundRobin4() {
+        RobinProcess[] p = new RobinProcess[5];
+        p[0] = new RobinProcess(1,0,1);
+        p[1] = new RobinProcess(2,0,2);
+        p[2] = new RobinProcess(3,1,3);
+        p[3] = new RobinProcess(4,2,4);
+        p[4] = new RobinProcess(5,3,5);
+
+
+        Round_Robin test = new Round_Robin();
+
+        Assert.assertEquals("4.6", test.scheduler(p, 1,1,1));
+    }
+
+    @Test
+    public void roundRobin5() {
+        RobinProcess[] p = new RobinProcess[20];
+
+        for (int i = 0; i < 20; i++) {
+            p[i] = new RobinProcess(i,i,i % 3+1);
+        }
+
+
+        Round_Robin test = new Round_Robin();
+
+        Assert.assertEquals("8.85", test.scheduler(p, 3,1,1));
+    }
+
+    @Test
+    public void roundRobin6() {
+        RobinProcess[] p = new RobinProcess[3];
+        p[0] = new RobinProcess(1,7,6);
+        p[1] = new RobinProcess(2,45,18);
+        p[2] = new RobinProcess(3,23,34);
+
+        Round_Robin test = new Round_Robin();
+
+        Assert.assertEquals("9.0", test.scheduler(p, 15,1,1));
+    }
 
     @Test
     public void roundRobinPriority1() {
