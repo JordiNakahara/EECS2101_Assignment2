@@ -1,39 +1,61 @@
-import java.util.Comparator;
+package rrPackage;
+import java.util.*;
 
-public class RobinProcess {
-    int pid;
-    int at;
-    int bt;
-    int ct, wt, tat, rt, start_time;
-    int bt_remaining;
-    int p[];
+public class RobinProcess 
+{
+	int id;		 //The process id
+	int bursts;  //The process 
+	int arrival; //The process arrival time
+	int waitTime;//The process wait time
+	
+	//Primary Constructor
+	RobinProcess(int id, int bursts, int arrival)
+	{
+		this.id = id;
+		this.bursts = bursts;
+		this.arrival = arrival;
+		this.waitTime = 0;
+	}
+	
 
-    RobinProcess(int pid, int at, int bt) {
-        this.pid = pid;
-        this.at = at;
-        this.bt = bt;
-        this.ct = 0;
-        this.wt = 0;
-        this.tat = 0;
-        this.rt = 0;
-        this.start_time = 0;
-        this.bt_remaining = bt;
-    }
-
-    static class ProcessComparatorAT implements Comparator<RobinProcess> {
-        public int compare(RobinProcess a, RobinProcess b) {
-            int x = a.at;
-            int y = b.at;
-            return Integer.compare(x, y);
-        }
-
-    }
-
-    static class ProcessComparatorPID implements Comparator<RobinProcess> {
-        public int compare(RobinProcess a,RobinProcess b) {
-            int x = a.pid;
-            int y = b.pid;
-            return Integer.compare(x, y);
-        }
-    }
+	//Comparator based on arrival time
+    class ArrivalComparator implements Comparator<RobinProcess>
+	{
+		@Override
+		public int compare(RobinProcess first, RobinProcess second)
+		{
+			int firstArrival = first.arrival;
+			int secondArrival = second.arrival;
+			return Integer.compare(firstArrival, secondArrival);
+		}
+	}
+	
+	//Method to return process ID
+	public int getId() {
+		return this.id;
+	}
+	
+	//Method to return process bursts 
+	public int getBursts() {
+		return this.bursts;
+	}
+	
+	//Method to return process arrival
+	public int getArrival() {
+		return this.arrival;
+	}
+	
+	//Method to return process waiting time
+	public int getWaitTime() {
+		return this.waitTime;
+	}
+	
+	public void addWaitTime() {
+		this.waitTime++;
+	}
+	
+	public void subBursts()
+	{
+		this.bursts--;
+	}
 }
