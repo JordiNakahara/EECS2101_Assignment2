@@ -30,6 +30,48 @@ public class Main {
 
         while (!isValidInput) {
             if (algorithm.equals("round robin")) {
+                try {
+
+                    System.out.println("Please enter the number of processes:");
+                    int numProcess = Integer.parseInt(sc.nextLine());
+                    int[] arrivalTimes = new int[numProcess];
+                    int[] burstTimes = new int[numProcess];
+                    RobinProcess[] processes = new RobinProcess[numProcess];
+                    int timeQuantum = -1;
+
+
+                    for (int i = 0; i < numProcess; i++) {
+                        System.out.println("Please enter arrival time of process number " + (i + 1));
+                        arrivalTimes[i] = Integer.parseInt(sc.nextLine());
+                    }
+
+
+
+                    for (int i = 0; i < numProcess; i++) {
+                        System.out.println("Please enter burst time of process number " + (i + 1));
+                        burstTimes[i] = Integer.parseInt(sc.nextLine());
+                    }
+
+                    System.out.println("Please enter the system time quantum: ");
+                    timeQuantum = Integer.parseInt(sc.nextLine());
+
+
+
+                    for (int i = 0; i < numProcess; i++) {
+                        processes[i] = new RobinProcess(i,arrivalTimes[i], burstTimes[i]);
+                    }
+
+                    Round_Robin scheduler = new Round_Robin(processes, timeQuantum);
+                    String output = "" + scheduler.robinWaitTime();
+
+
+                    System.out.println("**********************************************\nRound Robin Priority combined" +
+                            " waiting time = " + output);
+                    isValidInput = true;
+                } catch (Exception e) {
+                    System.out.println("Please enter valid input!");
+                    isValidInput = false;
+                }
 
             } else if (algorithm.equals("shortest job first")) {
                 try {
@@ -71,7 +113,6 @@ public class Main {
                     int numProcess = Integer.parseInt(sc.nextLine());
                     int[] priorities = new int[numProcess];
                     int[] burstTimes = new int[numProcess];
-                    ArrayList<SJFProcess> toPass = new ArrayList<SJFProcess>();
                     int timeQuantum = -1;
 
                     for (int i = 0; i < numProcess; i++) {
