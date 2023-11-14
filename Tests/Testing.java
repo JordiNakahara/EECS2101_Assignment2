@@ -21,9 +21,9 @@ public class Testing {
         p[1] = new RobinProcess(2,0,3);
         p[2] = new RobinProcess(3,0,3);
 
-        Round_Robin test = new Round_Robin();
+        Round_Robin test = new Round_Robin(p,1);
 
-        String output = test.scheduler(p, 1, 1, 1);
+        String output = "" + test.robinWaitTime();
 
         flag = output.equals("5.6666665");
 
@@ -44,9 +44,9 @@ public class Testing {
         p[2] = new RobinProcess(3, 32, 8);
         p[3] = new RobinProcess(4, 128, 14);
 
-        Round_Robin test = new Round_Robin();
+        Round_Robin test = new Round_Robin(p,32);
 
-        Assert.assertEquals("6.25", test.scheduler(p, 32, 1, 1));
+        Assert.assertEquals(6.25, test.robinWaitTime());
     }
 
     /**
@@ -60,9 +60,9 @@ public class Testing {
         p[2] = new RobinProcess(3,0,2);
 
 
-        Round_Robin test = new Round_Robin();
+        Round_Robin test = new Round_Robin(p,1);
 
-        Assert.assertEquals("4.3333335", test.scheduler(p, 1,1,1));
+        Assert.assertEquals(4.3333335, test.robinWaitTime());
     }
 
 
@@ -79,9 +79,9 @@ public class Testing {
         p[4] = new RobinProcess(5,3,5);
 
 
-        Round_Robin test = new Round_Robin();
+        Round_Robin test = new Round_Robin(p,1);
 
-        Assert.assertEquals("4.6", test.scheduler(p, 1,1,1));
+        Assert.assertEquals(4.6, test.robinWaitTime());
     }
 
 
@@ -97,9 +97,9 @@ public class Testing {
         }
 
 
-        Round_Robin test = new Round_Robin();
+        Round_Robin test = new Round_Robin(p,3);
 
-        Assert.assertEquals("8.85", test.scheduler(p, 3,1,1));
+        Assert.assertEquals("8.85", test.robinWaitTime());
     }
 
 
@@ -113,9 +113,9 @@ public class Testing {
         p[1] = new RobinProcess(2,45,18);
         p[2] = new RobinProcess(3,23,34);
 
-        Round_Robin test = new Round_Robin();
+        Round_Robin test = new Round_Robin(p,15);
 
-        Assert.assertEquals("9.0", test.scheduler(p, 15,1,1));
+        Assert.assertEquals("9.0", test.robinWaitTime());
     }
 
 
@@ -427,6 +427,13 @@ public class Testing {
         Assert.assertEquals("0.0", output);
         System.out.println("TestAll1 SJF Portion Passed\nAverage Waiting Time: " + output);
 
+
+        RobinProcess[] p = new RobinProcess[1];
+        p[0] = new RobinProcess(1, 1, 0);
+
+        Round_Robin testRobin = new Round_Robin(p,1);
+
+        Assert.assertEquals(0.0, testRobin.robinWaitTime());
     }
 
 
@@ -466,6 +473,16 @@ public class Testing {
         output = "" + toRun.averageWaiting();
         Assert.assertEquals("3.6666666666666665", output);
         System.out.println("TestAll2 SJF Portion Passed\nAverage Waiting Time: " + output);
+
+
+        RobinProcess[] p = new RobinProcess[3];
+        p[0] = new RobinProcess(1, 5, 0);
+        p[1] = new RobinProcess(2, 3, 0);
+        p[2] = new RobinProcess(3, 7, 0);
+
+        Round_Robin testRobin = new Round_Robin(p,2);
+
+        Assert.assertEquals(7.0, testRobin.robinWaitTime());
     }
 
 
@@ -473,7 +490,7 @@ public class Testing {
      * This method tests all the algorithms with the same test case.
      */
     @Test
-    public void TestAll3() {
+        public void TestAll3() {
         RRPriority test = new RRPriority(2);
         Process one = new Process(9, 0, "1");
         test.addProcess(one);
@@ -517,6 +534,19 @@ public class Testing {
         output = "" + toRun.averageWaiting();
         Assert.assertEquals("6.571428571428571", output);
         System.out.println("TestAll3 SJF Portion Passed\nAverage Waiting Time: " + output);
+
+        RobinProcess[] p = new RobinProcess[7];
+        p[0] = new RobinProcess(1, 9, 0);
+        p[1] = new RobinProcess(2, 3, 0);
+        p[2] = new RobinProcess(3, 1, 0);
+        p[3] = new RobinProcess(4, 8, 0);
+        p[4] = new RobinProcess(5, 2, 0);
+        p[5] = new RobinProcess(6, 5, 0);
+        p[6] = new RobinProcess(7, 1, 0);
+
+        Round_Robin testRobin = new Round_Robin(p,2);
+
+        Assert.assertEquals(13.286, testRobin.robinWaitTime());
     }
 
 
