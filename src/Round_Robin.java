@@ -76,6 +76,10 @@ public class Round_Robin
 					{
 						index = 0;
 					}
+					if(index == pList.size())
+					{
+						index = 0;
+					}
 					
 					//Need a new check here
 					if(pList.isEmpty() != true)
