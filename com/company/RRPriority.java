@@ -15,6 +15,10 @@ public class RRPriority extends CPUPriority{
     private boolean terminate = false;
     private int quantCounter = 0;
 
+    /**
+     * Instantiates an RRPriority object. It assumes we start counting processes at time 0, with no current process.
+     * @param timeQuantum the desired time quantum
+     */
     public RRPriority (int timeQuantum){
         super();
         this.timeQuantum = timeQuantum;
@@ -25,6 +29,12 @@ public class RRPriority extends CPUPriority{
         this.totalWaitTime = 0;
     }
 
+    /**
+     * The algorithm will start executing higher priority processes and work its way down to the lower priority
+     * processes. If there are multiple of the same priorities, it will apply a round-robin scheduling algorithm
+     * across that priority.
+     * @return A line stating the current time and the process we ran at the stated time, till the next time
+     */
     @Override
     public String run() {
         String action = time + " - ";
@@ -90,6 +100,14 @@ public class RRPriority extends CPUPriority{
         return action;
     }
 
+    /**
+     * Private method used to change quantum and terminate boolean variables. The variables represent the state in
+     * which the current queue is in:
+     *      quantum = true (the time quantum has been reached)
+     *      quantum = true (the time quantum has not been reached)
+     *      terminate = true (the current process is finished)
+     *      terminate = true (the current process is not finished)
+     */
     private void validateChange(){
         if (quantCounter == timeQuantum){
             quantum = true;
@@ -102,10 +120,20 @@ public class RRPriority extends CPUPriority{
 
     }
 
+    /**
+     * Calculates the average waiting time by dividing the total waiting time by the amount of processes
+     * @return the average waiting time
+     */
     public double getAverageWaitingTime(){
         return (double) totalWaitTime / (double) maxProcesses;
     }
 
+    /**
+     * The algorithm needs to know if we should swap processes. This private method calculate whether or not a process
+     * needs to be changed. The program is not runnable when we need to change a process, thus it will return false
+     * when a process needs to be changed and true when we do not need to change a process.
+     * @return whether the process needs to changed
+     */
     private boolean runnable(){
         return (!quantum) & (!terminate);
     }
