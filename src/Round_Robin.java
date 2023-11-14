@@ -1,98 +1,118 @@
+package rrPackage;
 import java.util.*;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Queue;
-import java.util.LinkedList;
-import java.util.Scanner;
-public class Round_Robin {
-    
-    public String scheduler(RobinProcess[] p, int tq, int at, int bt) {
-        int n = p.length;
-        int index;
-        Queue<Integer> q = new LinkedList<>();
-        boolean[] visited = new boolean[100];
-        boolean is_first_process = true;
-        int current_time = 0, max_completion_time;
-        int completed = 0, total_idle_time = 0;
-        float sum_tat = 0, sum_wt = 0, sum_rt = 0;
-        for (int i = 0; i < n; i++) {
-            p[i] = new RobinProcess(i, at, 0);
-            p[i].pid=i;
-        }
-        for (int i = 0; i < n; i++) {
-            p[i].bt = bt;
-            p[i].bt_remaining = p[i].bt;
-        }
 
-        //We have sorted the structure in the increasing order on the basis of arrival time
-        Arrays.sort(p, 0, n, new RobinProcess.ProcessComparatorAT());
-        q.add(0);
-        visited[0] = true;
-        while (completed != n) {
-            index = q.poll();
-            if (p[index].bt_remaining == p[index].bt) {
-                p[index].start_time = Math.max(current_time, p[index].at);
-                total_idle_time += (is_first_process == true) ? 0 : p[index].start_time - current_time;
-                current_time = p[index].start_time;
-                is_first_process = false;
-            }
-            if (p[index].bt_remaining - tq > 0) {
-                p[index].bt_remaining -= tq;
-                current_time += tq;
-            } else {
-                current_time += p[index].bt_remaining;
-                p[index].bt_remaining = 0;
-                completed++;
-                p[index].ct = current_time;
-                p[index].tat = p[index].ct - p[index].at;
-                p[index].wt = p[index].tat - p[index].bt;
-                p[index].rt = p[index].start_time - p[index].at;
-                sum_tat += p[index].tat;
-                sum_wt += p[index].wt;
-                sum_rt += p[index].rt;
-            }
-    // we have to check which new processes needs to be pushed to Ready Queue from the Input list
-            for (int i = 1; i < n; i++) {
-                if (p[i].bt_remaining > 0 && p[i].at <= current_time && visited[i] == false) {
-                    q.add(i);
-                    visited[i] = true;
-                }
-            }
-//we have to check if Process on CPU needs to be pushed to Ready Queue
-            if (p[index].bt_remaining > 0)
-                q.add(index);
-// if queue is empty, just add one process from list, whose remaining burst time>0
-            if (q.isEmpty()) {
-                for (int i = 1; i < n; i++) {
-                    if (p[i].bt_remaining > 0) {
-                        q.add(i);
-                        visited[i] = true;
-                        break;
-                    }
-                }
-            }
-        }
-        // end of the while loop
-        max_completion_time = Integer.MIN_VALUE;
-        for (int i = 0; i < n; i++)
-            max_completion_time = Math.max(max_completion_time, p[i].ct);
-        //length_cycle = max_completion_time - p[0].at;
-        //cpu_utilization = (int) ((float) (length_cycle - total_idle_time) / length_cycle * 100);
-
-        //sort so that process ID in output comes in Original order
-        Arrays.sort(p, 0, n, new RobinProcess.ProcessComparatorPID());
-
-// DISPLAYING THE OUTPUT
-        System.out.println("\nProcess No.\tAT\tCPU Burst Time\tStart Time\tCT\tTAT\tWT\tRT");
-        for (int i = 0; i < n; i++)
-            System.out.println(i + "\t\t" + p[i].at + "\t" + p[i].bt + "\t\t" + p[i].start_time + "\t\t" + p[i].ct + "\t" + p[i].tat + "\t" + p[i].wt + "\t" + p[i].rt);
-        System.out.println();
-
-        System.out.println("\nAverage Turn Around time= " + (float) sum_tat / n);
-        System.out.println("\nAverage Waiting Time= " + (float) sum_wt / n);
-        System.out.println("\nAverage Response Time= " + (float) sum_rt / n);
-        return "" + (float) sum_tat / n;
-    }
+public class Round_Robin 
+{
+	RobinProcess[] processes;
+	int quantum;
+	
+	public Round_Robin(RobinProcess[] processes, int quantum)
+	{
+		this.processes = processes;
+		this.quantum = quantum;
+	}
+	
+	public double robinWaitTime()
+	{
+		ArrayList<RobinProcess> pList = new ArrayList<RobinProcess>();
+		int todo = processes.length;
+		int time = 0;
+		int index = 0;
+		int qCount = 0;
+		RobinProcess currentProcess = null;
+		
+		while(todo > 0)
+		{
+			System.out.print(time + "ms : ");
+			for(int i = 0; i < processes.length; i++)
+			{
+				if(processes[i].getArrival() == time)
+				{
+					System.out.print("Process " + processes[i].getId() + " matches at time = " + time + ", ");
+					if(pList.isEmpty())
+					{
+						currentProcess = processes[i];
+					}
+					pList.add(processes[i]);
+				}
+			}
+			
+			if(pList.isEmpty())
+			{
+				System.out.println("No processes at this time.");
+			}
+			
+			//So long as we have processes to work on
+			if(pList.isEmpty() != true)
+			{
+				currentProcess.subBursts();
+				qCount++;
+				System.out.println("Bursts needed for process " + currentProcess.getId() + " = " + currentProcess.getBursts() + " quantum : " + qCount + "/" + quantum + " index : " + index);
+			
+				//Adding to wait times
+				for(RobinProcess p: processes)
+				{
+					if(!(p.equals(currentProcess)) && p.getBursts() > 0)
+					{
+						if(!(p.getArrival() > time))
+						{
+							p.addWaitTime();
+						}
+					}
+				}
+				
+				//Our process is finished
+				if(currentProcess.getBursts() <= 0)
+				{
+					System.out.println(" Process " + currentProcess.getId() + " finished.");
+					todo--;
+					//Removing now-finished process
+					pList.remove(currentProcess);
+					
+					//If the removed element was in the last index of the list, we need reset to 0
+					qCount = 0;
+					
+					if(pList.size() == 1)
+					{
+						index = 0;
+					}
+					
+					//Need a new check here
+					if(pList.isEmpty() != true)
+					{
+						currentProcess = pList.get(index);
+					}
+				}
+				
+				if((qCount != 0) && (qCount % quantum == 0))
+				{
+					qCount = 0;
+					if(index < (pList.size() - 1))
+					{
+						index++;
+						currentProcess = pList.get(index);
+					}
+					else if(index == (pList.size() - 1))
+					{
+						index = 0;
+						currentProcess = pList.get(index);
+					}
+				}
+			}
+			
+			
+			time++;
+		}
+		
+		
+		//Calculating average wait time.
+		int sum = 0;
+		for(RobinProcess p: processes)
+		{
+			System.out.print("[" + p.getWaitTime() + "], ");
+			sum+= p.getWaitTime();
+		}
+		double toReturn = (double)sum / processes.length;
+		return toReturn;
+	}
 }
-
