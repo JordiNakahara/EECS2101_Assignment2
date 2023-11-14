@@ -7,6 +7,14 @@ abstract class CPUPriority{
             private Process process;
             private Node prev;
             private Node next;
+
+            /**
+             * Instantiates a Node object
+             *
+             * @param process a given process
+             * @param prev the previous node
+             * @param next the next node
+             */
             public Node (Process process, Node prev, Node next){
                 this.process = process;
                 this.prev = prev;
@@ -14,22 +22,50 @@ abstract class CPUPriority{
             }
 
             //Getters-Node
+
+            /**
+             * @return process in Node
+             */
             public Process getProcess(){
                 return process;
             }
+
+            /**
+             * @return previous Node
+             */
             public Node getPrev(){
                 return prev;
             }
+
+            /**
+             * @return next Node
+             */
             public Node getNext(){
                 return next;
             }
+
             //Setters-Node
+
+            /**
+             * Changes the next Node to @next
+             * @param next the new next Node
+             */
             public void setNext(Node next) {
                 this.next = next;
             }
+
+            /**
+             * Changes the previous Node to @prev
+             * @param prev the new previous Node
+             */
             public void setPrev(Node prev) {
                 this.prev = prev;
             }
+
+            /**
+             * Changes the process to @process
+             * @param process the new Process
+             */
             public void setProcess(Process process) {
                 this.process = process;
             }
@@ -40,6 +76,11 @@ abstract class CPUPriority{
         private Node tail;
         private int size;
 
+        /**
+         * Instantiates a new CustomPriorityQueue object. It assumes an empty queue where the header will point to
+         * the tail and will not have any processes assigned to them other than null. Since the queue is empty
+         * the size is also set to 0.
+         */
         CustomPriorityQueue(){
             header = new Node(null, null, null);
             tail = new Node(null, header, null);
@@ -47,9 +88,20 @@ abstract class CPUPriority{
             size = 0;
         }
 
+        /**
+         * @return the header of the queue
+         */
         public Node getHeader(){
             return header;
         }
+
+        /**
+         * This method will count the number of processes in the queue with the same priority as @priority
+         * and returns that amount.
+         *
+         * @param priority the priority we want to search for
+         * @return the number of processes with @priority
+         */
         public int getPriorityCount(int priority){
             int count = 0;
 
@@ -65,13 +117,23 @@ abstract class CPUPriority{
 
             return count;
         }
+
         public Process getNextValidProcess(Process p){
             return null;
         }
+
+        /**
+         * @return current size of queue
+         */
         public int getSize() {
             return size;
         }
 
+        /**
+         * Checks if the queue has a node whose process has the same priority as @priority
+         * @param priority the priority we want to check
+         * @return true if the queue has priority
+         */
         public boolean hasPriority(int priority){
             boolean hasPriority = false;
             int priorityCount = 0;
@@ -87,6 +149,12 @@ abstract class CPUPriority{
 
             return priorityCount > 1;
         }
+
+        /**
+         * The method removes the Node that contains the given process.
+         * @param process the process we want to remove
+         * @return the process that was passed
+         */
         public Process remove(Process process){
             Node currentNode = header;
             while (currentNode != null){
@@ -117,6 +185,12 @@ abstract class CPUPriority{
             }
             return null;
         }
+
+        /**
+         * Adds a process in the queue according to a priority queue based on its priority in process, from higher
+         * to lower priority.
+         * @param p the process we want to add
+         */
         public void add(Process p) {
             if (size == 0){
                 header.setProcess(p);
@@ -158,6 +232,13 @@ abstract class CPUPriority{
                 currentNode = currentNode.getNext();
             }
         }
+
+        /**
+         * Calculates the next process in the queue with the same priority as the given process. If no other processes
+         * with the same priority return null.
+         * @param process the reference process
+         * @return the next valid process
+         */
         public Process findNextProcess(Process process){
             //Find node
             Node tempNode = findNode(process);
@@ -183,6 +264,13 @@ abstract class CPUPriority{
 
             return returnProcess;
         }
+
+        /**
+         * Finds the Node that contains the given process and returns it. Otherwise return null (no Node contains
+         * the given process).
+         * @param process the reference process
+         * @return the respective node
+         */
         private Node findNode(Process process){
             Node currentNode = header;
 
@@ -196,6 +284,10 @@ abstract class CPUPriority{
             return null;
         }
 
+        /**
+         * Runs the addWaitingTime() for each process in the queue except for the process given
+         * @param process the process we don't want to wait
+         */
         public void waitAll(Process process){
             Node currentNode = header;
 
@@ -209,6 +301,9 @@ abstract class CPUPriority{
             }
         }
 
+        /**
+         * Prints the queue
+         */
         public void printQueue(){
             Node currentNode = header;
 
@@ -221,6 +316,9 @@ abstract class CPUPriority{
     }
     private CustomPriorityQueue queue;
 
+    /**
+     * Instantiates a CPUPriority object with an empty queue
+     */
     public CPUPriority(){
         this.queue = new CustomPriorityQueue();
     }
@@ -229,22 +327,48 @@ abstract class CPUPriority{
         this.queue = queue;
     }
 
+    /**
+     * Adds the given process to queue
+     * @param p the process we want to add
+     */
     public void addProcess(Process p){
         queue.add(p);
     }
+
+    /**
+     * Removes the process from the queue
+     * @param p the process we want to remove
+     */
     public void terminateProcess(Process p){
         queue.remove(p);
     }
+
+    /**
+     * Checks if the queue has a node whose process has the same priority as @priority
+     * @param Priority the priority we want to check
+     * @return true if the queue has priority
+     */
     public boolean hasPriority(int Priority){
         return queue.hasPriority(Priority);
     }
+
+    /**
+     * Calculates the next process in the queue with the same priority as the given process. If no other processes
+     * with the same priority return null.
+     * @param process the reference process
+     * @return the next valid process
+     */
     public Process findNextProcess(Process process){
         return queue.findNextProcess(process);
     }
 
+    /**
+     * @return the front of the queue
+     */
     public Process getHeadProcess(){
         return queue.getHeader().getProcess();
     }
+
     public Process getNextValidProcess(Process p){
         return queue.getNextValidProcess(p);
     }
@@ -254,17 +378,32 @@ abstract class CPUPriority{
     public int getLowestPriorityCount(int priority){
         return queue.getPriorityCount(priority);
     }
+
+    /**
+     * @return the queue
+     */
     public CustomPriorityQueue getQueue() {
         return queue;
     }
+
+    /**
+     * @return the size of the queue
+     */
     public int getSize(){
         return queue.getSize();
     }
 
+    /**
+     * Prints the queue
+     */
     public void printQueue(){
         queue.printQueue();
     }
 
+    /**
+     * Runs the addWaitingTime() for each process in the queue except for the process given
+     * @param process the process we don't want to wait
+     */
     public void waitAll(Process process){
         queue.waitAll(process);
     }
