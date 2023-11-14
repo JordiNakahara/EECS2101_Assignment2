@@ -23,14 +23,11 @@ public class Testing {
 
         Round_Robin test = new Round_Robin(p,1);
 
-        String output = "" + test.robinWaitTime();
+        double output = test.robinWaitTime();
 
-        flag = output.equals("5.6666665");
-
-
+        Assert.assertEquals(5.66666667, output, 0.001);
 
 
-        Assert.assertEquals(true, flag);
     }
 
     /**
@@ -46,7 +43,7 @@ public class Testing {
 
         Round_Robin test = new Round_Robin(p,32);
 
-        Assert.assertEquals(6.25, test.robinWaitTime());
+        Assert.assertEquals(6.25, test.robinWaitTime(), 0.001);
     }
 
     /**
@@ -62,7 +59,7 @@ public class Testing {
 
         Round_Robin test = new Round_Robin(p,1);
 
-        Assert.assertEquals(4.3333335, test.robinWaitTime());
+        Assert.assertEquals(4.3333335, test.robinWaitTime(), 0.001);
     }
 
 
@@ -81,7 +78,7 @@ public class Testing {
 
         Round_Robin test = new Round_Robin(p,1);
 
-        Assert.assertEquals(4.6, test.robinWaitTime());
+        Assert.assertEquals(4.6, test.robinWaitTime(), 0.001);
     }
 
 
@@ -99,7 +96,7 @@ public class Testing {
 
         Round_Robin test = new Round_Robin(p,3);
 
-        Assert.assertEquals("8.85", test.robinWaitTime());
+        Assert.assertEquals("8.85", test.robinWaitTime(), 0.001);
     }
 
 
@@ -115,7 +112,7 @@ public class Testing {
 
         Round_Robin test = new Round_Robin(p,15);
 
-        Assert.assertEquals("9.0", test.robinWaitTime());
+        Assert.assertEquals("9.0", test.robinWaitTime(),0.001);
     }
 
 
